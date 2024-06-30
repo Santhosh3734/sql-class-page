@@ -10,10 +10,12 @@
     <p>Please scan the QR code below to make the payment.</p>
     <img src="https://github.com/Santhosh3734/sql-class-page/raw/main/WhatsApp%20Image%202024-07-01%20at%2012.16.40%20AM.jpeg" alt="PhonePe QR Code" style="width:300px;height:300px;">
 
-    <p>After making the payment, enter your email address below to receive the meeting link:</p>
+    <p>After making the payment, enter your email address and mobile number below to receive the meeting link:</p>
     <form id="paymentForm">
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" required><br>
+        <label for="mobile">Mobile Number:</label>
+        <input type="text" id="mobile" name="mobile" required><br>
         <button type="submit">Submit</button>
     </form>
 
@@ -23,13 +25,14 @@
         document.getElementById('paymentForm').addEventListener('submit', function(e) {
             e.preventDefault();
             var email = document.getElementById('email').value;
-            
+            var mobile = document.getElementById('mobile').value;
+
             fetch('/submit-payment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email: email }),
+                body: JSON.stringify({ email: email, mobile: mobile }),
             })
             .then(response => response.json())
             .then(data => {
