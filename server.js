@@ -6,17 +6,30 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
+// Dummy database to store confirmed payments (in real-world applications, use a proper database)
+const confirmedPayments = {};
+
+// Function to simulate payment confirmation for a given mobile number
+const confirmPayment = (mobile) => {
+    if (!confirmedPayments[mobile]) {
+        confirmedPayments[mobile] = 1;
+    } else {
+        confirmedPayments[mobile]++;
+    }
+};
+
 app.post('/submit-payment', (req, res) => {
-    const { email } = req.body;
+    const { email, mobile } = req.body;
 
-    // Simulate payment confirmation
-    const paymentConfirmed = true;
+    // Simulate confirming the payment
+    confirmPayment(mobile);
 
-    if (paymentConfirmed) {
+    // Check if payment has been made 100 times for the given mobile number
+    if (confirmedPayments[mobile] >= 100) {
         sendMeetingLink(email);
         res.json({ success: true });
     } else {
-        res.json({ success: false });
+        res.json({ success: false, message: 'Payment not confirmed or not enough payments made.' });
     }
 });
 
