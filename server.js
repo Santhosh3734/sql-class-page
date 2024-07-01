@@ -20,6 +20,7 @@ const confirmPayment = (mobile) => {
 
 app.post('/submit-payment', (req, res) => {
     const { email, mobile } = req.body;
+    console.log('Received request with email:', email, 'and mobile:', mobile);
 
     // Simulate confirming the payment
     confirmPayment(mobile);
