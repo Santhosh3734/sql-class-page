@@ -25,7 +25,7 @@ app.post('/submit-payment', (req, res) => {
     confirmPayment(mobile);
 
     // Check if payment has been made 100 times for the given mobile number
-    if (confirmedPayments[mobile] >= 100) {
+    if (confirmedPayments[mobile] >= 1) { // Change this to 100 in real implementation
         sendMeetingLink(email);
         res.json({ success: true });
     } else {
