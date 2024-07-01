@@ -27,6 +27,8 @@
             var email = document.getElementById('email').value;
             var mobile = document.getElementById('mobile').value;
 
+            console.log('Form submitted with email:', email, 'and mobile:', mobile);
+
             fetch('/submit-payment', {
                 method: 'POST',
                 headers: {
@@ -34,8 +36,12 @@
                 },
                 body: JSON.stringify({ email: email, mobile: mobile }),
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log('Response received');
+                return response.json();
+            })
             .then(data => {
+                console.log('Data received:', data);
                 if (data.success) {
                     document.getElementById('paymentForm').style.display = 'none';
                     document.getElementById('confirmation').style.display = 'block';
